@@ -1,36 +1,52 @@
-# ktor-discord
+# Ktor Based Chat Application
 
-This project was created using the [Ktor Project Generator](https://start.ktor.io).
-
-Here are some useful links to get you started:
- * [Ktor Documentation](https://ktor.io/docs/home.html)
- * [Ktor GitHub page](https://github.com/ktorio/ktor)
- * [Ktor Slack chat](https://app.slack.com/client/T09229ZC6/C0A974TJ9). [Request an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up).
-
+A Discord-like real-time chat server built in **Kotlin** using **Ktor** and **MongoDB**.
+Supports multiple chat rooms where users can create rooms, join via unique room ID,
+send and receive messages in real-time, and leave rooms whenever they want.
 
 ## Features
-Here's a list of features included in this project:
 
-| Name | Description |
-|------|-------------|
-| [Status Pages](https://start.ktor.io/p/io.ktor/server-status-pages) | Provides exception handling for routes |
-| [kotlinx.serialization](https://start.ktor.io/p/io.ktor/server-kotlinx-serialization) | Handles JSON serialization using kotlinx.serialization library |
-| [Content Negotiation](https://start.ktor.io/p/io.ktor/server-content-negotiation) | Provides automatic content conversion according to Content-Type and Accept headers |
-| [Sessions](https://start.ktor.io/p/io.ktor/server-sessions) | Adds support for persistent sessions through cookies or headers |
-| [Call Logging](https://start.ktor.io/p/io.ktor/server-call-logging) | Logs client requests |
-| [WebSockets](https://start.ktor.io/p/io.ktor/server-websockets) | Adds WebSocket protocol support for bidirectional client connections |
-| [CORS](https://start.ktor.io/p/io.ktor/server-cors) | Enables Cross-Origin Resource Sharing (CORS) |
+| Feature | Description |
+|---------|-------------|
+| **WebSockets** | Persistent bidirectional connections for real-time message broadcasting |
+| **REST APIs** | HTTP endpoints for room creation, member management and message history |
+| **MongoDB** | NoSQL database for persisting rooms, messages and member-room relationships |
+| **Multi-Room Support** | Users can create and join multiple rooms using unique room IDs |
+| **Member Management** | Tracks which rooms each member has joined across server restarts |
+| **CORS** | Configured for cross-platform access from Android, iOS or Web clients |
+| **Status Pages** | Global exception handling with proper HTTP status codes |
+| **Content Negotiation** | Automatic JSON serialization and deserialization |
 
+## API Endpoints
 
-## Building & Running
-To build or run the project, use one of the following tasks:
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Health check |
+| POST | `/room/create?label=` | Create a new room |
+| GET | `/allMessages?roomId=` | Get all messages in a room |
+| GET | `/member/getAllRoom?username=` | Get all rooms a member is in |
+| DELETE | `/room/leave?username=&roomId=` | Leave a room |
+| WS | `/chat/?username=&roomId=` | Connect to a room via WebSocket |
 
+## Tech Stack
 
-| Task | Description |
-|------|-------------|
+- **Language** — Kotlin
+- **Framework** — Ktor
+- **Database** — MongoDB
+- **Real-time** — WebSockets
+- **Serialization** — kotlinx.serialization
 
-If the server starts successfully, you'll see the following output:
+## Running the Project
+
+Make sure MongoDB is running locally on port 27017, then run:
+
+```bash
+./gradlew run
 ```
-2024-12-04 14:32:45.584 [main] INFO  Application - Application started in 0.303 seconds.
-2024-12-04 14:32:45.682 [main] INFO  Application - Responding at http://0.0.0.0:8080
-```
+
+If the server starts successfully you'll see:
+Application started in 0.5 seconds.
+Responding at http://0.0.0.0:8080
+
+## Can Be Used As
+A ready-to-use backend server for any Android, iOS or Web based chat application.
